@@ -18,6 +18,7 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        buildConfigField("String", "SEARCH_BASE_URL", "\"" + getSearchUrl() + "\"")
     }
 
     buildTypes {
@@ -132,4 +133,8 @@ dependencies {
     // AndroidX Test - Hilt testing
     androidTestImplementation(libs.hilt.android.testing)
     kspAndroidTest(libs.hilt.compiler)
+}
+
+fun getSearchUrl(): String? {
+    return project.findProperty("SEARCH_BASE_URL") as? String
 }
