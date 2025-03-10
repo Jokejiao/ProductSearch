@@ -10,7 +10,7 @@ fun NetworkProduct.toExternal() = Product(
     productName = productName,
     price = priceInfo?.price ?: 0.0,
     productImageUrl = productImageUrl,
-    productDescription = productDescription,
+    productDescription = productDescription ?: "Description not available",
     promotions = promotions.mapNotNull { it.dealDescription },
     available = inventory?.available == true,
     imageUrls = imageGroups.flatMap { it.imageUrls }
