@@ -8,10 +8,12 @@ import kotlin.collections.map
 fun NetworkProduct.toExternal() = Product(
     productId = productId,
     productName = productName,
-    price = priceInfo.price,
+    price = priceInfo?.price ?: 0.0,
     productImageUrl = productImageUrl,
     productDescription = productDescription,
-    dealDescription = promotions.map { it.dealDescription }
+    promotions = promotions.mapNotNull { it.dealDescription },
+    available = inventory?.available == true,
+    imageUrls = imageGroups.flatMap { it.imageUrls }
 )
 
 // Note: JvmName is used to provide a unique name for each extension function with the same name.
