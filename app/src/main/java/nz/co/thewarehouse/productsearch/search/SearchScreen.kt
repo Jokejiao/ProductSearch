@@ -132,7 +132,8 @@ private fun ProductsContent(
                 items(products) { product ->
                     ProductItem(
                         product = product,
-                        onProductClick = onProductClick,
+                        onProductClick = { if (!searching) onProductClick(product) },
+                        isClickable = !searching
                     )
                 }
             }
@@ -143,13 +144,14 @@ private fun ProductsContent(
 @Composable
 fun ProductItem(
     product: Product,
-    onProductClick: (Product) -> Unit
+    onProductClick: (Product) -> Unit,
+    isClickable: Boolean
 ) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
             .padding(vertical = 4.dp)
-            .clickable { onProductClick(product) }
+            .clickable(enabled = isClickable) { onProductClick(product) }
             .semantics {
                 contentDescription = product.productName
                 onClick { true }
