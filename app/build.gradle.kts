@@ -18,7 +18,8 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-        buildConfigField("String", "SEARCH_BASE_URL", "\"" + getSearchUrl() + "\"")
+        buildConfigField("String", "SEARCH_BASE_URL", "\"" + getProperty("SEARCH_BASE_URL") + "\"")
+        buildConfigField("String", "APIM_SUB_KEY", "\"" + getProperty("APIM_SUB_KEY") + "\"")
     }
 
     buildTypes {
@@ -87,6 +88,7 @@ dependencies {
     implementation(libs.accompanist.swiperefresh)
     implementation(libs.coil.kt.compose)
     implementation(libs.coil.kt.network.okhttp)
+    implementation(libs.androidx.dataStore.preferences)
 
     debugImplementation(composeBom)
     debugImplementation(libs.androidx.compose.ui.tooling.core)
@@ -137,6 +139,6 @@ dependencies {
     kspAndroidTest(libs.hilt.compiler)
 }
 
-fun getSearchUrl(): String? {
-    return project.findProperty("SEARCH_BASE_URL") as? String
+fun getProperty(key: String): String? {
+    return project.findProperty(key) as? String
 }

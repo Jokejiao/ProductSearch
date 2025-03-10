@@ -2,22 +2,14 @@ package nz.co.thewarehouse.productsearch.api
 
 import nz.co.thewarehouse.productsearch.data.source.network.SearchResult
 import retrofit2.http.GET
-import retrofit2.http.Headers
 import retrofit2.http.Query
 
 
 interface SearchService {
 
-    @Headers(
-        "Ocp-Apim-Subscription-Key: ed3c51149f9944e28705ad72d1f7a11f",
-        "X-TWG-Token: eyJqd3QiOiJCZWFyZXIgZXlKZmRpSTZJakVpTENKaGJHY2lPaUpJVXpJMU5pSXNJblI1Y0NJNklrcFhWQ0o5LmV5SmZkaUk2SWpFaUxDSmxlSEFpT2pFM05ERTFORFkxT0Rjc0ltbGhkQ0k2TVRjME1UVTBORGM0Tnl3aWFYTnpJam9pTldZeFpETm1Zek10TnpaaE9TMDBNMkZpTFRrM01UY3RPVGcxTldReFpUVTRObU0zSWl3aWMzVmlJam9pZTF3aVgzWmNJanBjSWpGY0lpeGNJbU4xYzNSdmJXVnlYMmx1Wm05Y0lqcDdYQ0pqZFhOMGIyMWxjbDlwWkZ3aU9sd2lZbU0yYlU1eFQwMWFNV0ZTUlRsV2RtNHljVTlvU2xGbVpFSmNJaXhjSW1kMVpYTjBYQ0k2ZEhKMVpTeGNJblpwYzJsMFgybGtYQ0k2WENJek4yTTBPV1JtTTJVeVpESXdNR1EzTnpSalpHRXlNRFJqTkZ3aWZYMGlmUS5kbDhYZ2xkQVZvOFNHUkRyclNBZG5iRF90blJuZll3SXJvaGpoc1BXNzhKZ1RpZjJrdWtRcW5CNzRSZ0tIUng2VTVDVEJlZThrdFRWd3FubXRndVJUOU9FekdIcDdfS2xBWEhuUy1qVVhRYTZIckVtbEZOa2pvMnAteHh0bkRjeEZfSDJZTnFDazNhVkNGZlFsRk5PMUpRSVp4WkQ5VTF4Z09FYkN5V1VUaVZMZElORC1DUG96bmFVS2ROZkZlYW9FeFN2eGZQTk9NYWtVSzYtMmVtVG5iRjdsTk9XLWdmV0tlR1ZZcHM5MXY5NlkyTnBHX21PWF9nT21ZbV9tN2hKekt1WTR6VTkwU0djLUdZa2JCS2ZSUEszR3RoVHIwTE5YVnNrbnlkaXJwc1pESTFobEJqckN4Tno2ODktb2d1bF9vN091d0xFbVNOeGJ5dmMxTGlnclFtTVk4dnJoV24xRVBESW50RXhPSzAyQzJCbWdteFVGTDFsdzUyak5tdHQ2aDBvQk1FQ1BLaF9rcDkwdXh5X2RrXzJ5RWpudldWMXFjUFRvbDV4Sy05TGNJMXdjOFVrZ3NrRWlFQ3Q5eC1NWlE4ZEMwT3Z5M3FWZDFEV24xdy1JS0YwT0loU2tSTWduS0dWY0tHUUFMWjB2R2ZXeGRzb09WVjhhVGJKdHluM3gzdFRmWW1nUkZkQjNTT29fVEF0djE5aFhlUXNqTE1iN01rSFZJNklHdVA1UnpKSUlTdExPVWs0V0k0ck5Vb3NudWUxenFFNzZtN29kdEYwOTh5c2l3IiwiYmFza2V0X2lkIjoiIiwib3JkZXJfaWQiOiIiLCJ2ZXIiOjF9"
-    )
     @GET("twgCSharpTest/Search.json")
     suspend fun searchProducts(
         @Query("Search") query: String,
         @Query("Limit") limit: Int,
     ): SearchResult
 }
-
-//"Authorization: Guest",
-//"X-TWL-Device: Android",
