@@ -1,6 +1,5 @@
 package nz.co.thewarehouse.productsearch.data
 
-import android.util.Log
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext
 import nz.co.thewarehouse.productsearch.data.source.network.NetworkDataSource
@@ -13,14 +12,10 @@ class DefaultProductRepository @Inject constructor(
     @IoDispatcher private val dispatcher: CoroutineDispatcher
 ) : ProductRepository {
 
-    override suspend fun searchProducts(query: String): List<Product> =
+    override suspend fun searchProducts(query: String): Result<List<Product>> =
         withContext(dispatcher) {
             runCatching {
                 networkDataSource.searchProducts(query).toExternal()
-            }.onFailure { e ->
-                Log.e("Repository", "Search products failed: ${e.message}")
-            }.getOrElse {
-                emptyList()
             }
         }
 }
