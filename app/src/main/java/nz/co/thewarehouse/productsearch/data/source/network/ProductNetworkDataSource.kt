@@ -9,5 +9,9 @@ class ProductNetworkDataSource @Inject constructor(
 ) : NetworkDataSource {
 
     override suspend fun searchProducts(query: String): List<NetworkProduct> =
-        searchService.searchProducts(query, 10).products
+        searchService.searchProducts(query, LIMIT).products
+
+    companion object {
+        private const val LIMIT = 20
+    }
 }
