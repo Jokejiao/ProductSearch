@@ -19,6 +19,7 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -40,7 +41,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import coil3.compose.AsyncImage
 import nz.co.thewarehouse.productsearch.R
@@ -54,20 +54,21 @@ import nz.co.thewarehouse.productsearch.util.SearchTopAppBar
 fun SearchScreen(
     modifier: Modifier = Modifier,
     onProductClick: (Product) -> Unit,
-    viewModel: SearchViewModel = hiltViewModel(),
+    viewModel: SearchViewModel,
     searchQuery: String = viewModel.searchQuery.collectAsStateWithLifecycle().value,
     onSearchQueryChanged: (String) -> Unit = viewModel::onSearchQueryChanged,
     onSearchTriggered: (String) -> Unit = viewModel::onSearchTriggered,
-    snackbarHostState: SnackbarHostState = remember { SnackbarHostState() }
 ) {
+    val snackbarHostState = remember { SnackbarHostState() }
+    val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+
     Scaffold(
         modifier = modifier.fillMaxSize(),
         topBar = {
             SearchTopAppBar()
         },
+        snackbarHost = { SnackbarHost(snackbarHostState) }
     ) { paddingValues ->
-        val uiState by viewModel.uiState.collectAsStateWithLifecycle()
-
         Column(
             modifier = Modifier
                 .fillMaxSize()
@@ -91,10 +92,9 @@ fun SearchScreen(
             )
         }
 
-        // Check for user messages to display on the screen
-        uiState.userMessage?.let { message ->
-            val snackbarText = stringResource(message)
-            LaunchedEffect(snackbarHostState, viewModel, message, snackbarText) {
+        uiState.userMessage?.let { userMessage ->
+            val snackbarText = stringResource(userMessage)
+            LaunchedEffect(snackbarHostState, viewModel, userMessage, snackbarText) {
                 snackbarHostState.showSnackbar(snackbarText)
                 viewModel.snackbarMessageShown()
             }
@@ -166,7 +166,7 @@ fun ProductItem(
                 model = product.productImageUrl,
                 placeholder = painterResource(R.drawable.product_placeholder),
                 error = painterResource(R.drawable.product_placeholder),
-                contentDescription = "Product Image",
+                contentDescription = stringResource(R.string.product_image_content_description),
                 modifier = Modifier
                     .size(80.dp)
                     .clip(RoundedCornerShape(8.dp)),
