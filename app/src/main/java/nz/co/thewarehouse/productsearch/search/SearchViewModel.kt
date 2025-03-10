@@ -59,6 +59,7 @@ class SearchViewModel @Inject constructor(
         searchJob?.cancel()
 
         searchJob = viewModelScope.launch {
+            val currentJob = this@launch
             _isSearching.value = true
 
             try {
@@ -71,7 +72,9 @@ class SearchViewModel @Inject constructor(
                         showSnackbarMessage(R.string.search_products_error)
                     }
             } finally {
-                _isSearching.value = false
+                if (searchJob == currentJob) {
+                    _isSearching.value = false
+                }
             }
         }
     }
