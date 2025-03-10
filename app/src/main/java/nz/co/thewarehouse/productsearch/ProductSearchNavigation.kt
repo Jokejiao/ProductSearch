@@ -19,7 +19,7 @@ private object ProductSearchScreens {
  * Arguments used in [ProductSearchDestinations] routes
  */
 object ProductSearchDestinationsArgs {
-    const val PRODUCT_ID_ARG = "ProductId"
+    const val PRODUCT_ID_ARG = "productId"
 }
 
 /**

@@ -29,7 +29,7 @@ fun SearchTopAppBar(
 fun ProductTopAppBar(onBack: () -> Unit) {
     TopAppBar(
         title = {
-            Text(text = stringResource(id = R.string.transaction_details))
+            Text(text = stringResource(id = R.string.product_details))
         },
         navigationIcon = {
             IconButton(onClick = onBack) {

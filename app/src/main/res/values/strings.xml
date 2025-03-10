@@ -1,14 +1,16 @@
 <resources>
     <string name="app_name">ProductSearch</string>
-    <string name="transaction_details">Transaction Details</string>
+    <string name="product_details">Product Details</string>
     <string name="menu_back">Back</string>
-    <string name="loading_transactions_error">Error while loading transactions</string>
-    <string name="loading_transaction_error">Error while loading transaction</string>
     <string name="search_products_error">Error while searching products</string>
     <string name="no_products_image_content_description">No products image</string>
     <string name="no_products">No Products</string>
-    <string name="transaction_not_found">Transaction not found</string>
-    <string name="no_data">No data</string>
+    <string name="product_not_found">Product not found</string>">
+    <string name="product_image_content_description">Product Image</string>
+    <string name="product_available">Available</string>
+    <string name="product_out_of_stock">Out of Stock</string>">
+    <string name="promotions">Promotions</string>">
+    <string name="product_price">Price: $%s</string>
 
     <string name="search_button_text">Search</string>
     <string name="search_title">Search</string>
