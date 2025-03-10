@@ -164,6 +164,8 @@ fun ProductItem(
         ) {
             AsyncImage(
                 model = product.productImageUrl,
+                placeholder = painterResource(R.drawable.product_placeholder),
+                error = painterResource(R.drawable.product_placeholder),
                 contentDescription = "Product Image",
                 modifier = Modifier
                     .size(80.dp)
