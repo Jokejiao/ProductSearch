@@ -5,7 +5,8 @@ import kotlin.collections.map
 
 
 // Network to External
-fun NetworkProduct.toExternal() = UiProduct(
+fun NetworkProduct.toExternal() = Product(
+    productId = productId,
     productName = productName,
     price = priceInfo.price,
     productImageUrl = productImageUrl,
