@@ -59,6 +59,7 @@ targetSdk = "35"
 truth = "1.4.4"
 turbine = "0.12.1"
 lifecycleRuntimeKtx = "2.8.7"
+mockk = "1.13.17"
 
 [libraries]
 accompanist-appcompat-theme = { group = "com.google.accompanist", name = "accompanist-appcompat-theme", version.ref = "accompanist" }
@@ -141,6 +142,9 @@ room-ktx = { group = "androidx.room", name = "room-ktx", version.ref = "room" }
 room-runtime = { group = "androidx.room", name = "room-runtime", version.ref = "room" }
 room-testing = { group = "androidx.room", name = "room-testing", version.ref = "room" }
 timber = { group = "com.jakewharton.timber", name = "timber", version.ref = "timber" }
+mockk = { group = "io.mockk", name = "mockk", version.ref = "mockk"}
+mockk-android = { group = "io.mockk", name = "mockk-android", version.ref = "mockk"}
+mockk-agent = { group = "io.mockk", name = "mockk-agent", version.ref = "mockk"}
 
 # Dependencies of the included build-logic
 android-gradlePlugin = { group = "com.android.tools.build", name = "gradle", version.ref = "androidGradlePlugin" }

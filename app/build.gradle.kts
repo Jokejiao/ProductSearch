@@ -1,3 +1,5 @@
+import com.android.build.api.dsl.Packaging
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
@@ -17,7 +19,7 @@ android {
         versionCode = 1
         versionName = "1.0"
 
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner = "nz.co.thewarehouse.productsearch.CustomTestRunner"
         buildConfigField("String", "SEARCH_BASE_URL", "\"" + getProperty("SEARCH_BASE_URL") + "\"")
         buildConfigField("String", "APIM_SUB_KEY", "\"" + getProperty("APIM_SUB_KEY") + "\"")
     }
@@ -42,6 +44,15 @@ android {
     buildFeatures {
         compose = true
         buildConfig = true
+    }
+
+    packaging {
+        resources {
+            excludes += "/META-INF/{AL2.0,LGPL2.1}"
+            excludes += "META-INF/NOTICE.md"
+            excludes += "META-INF/LICENSE.md"
+            excludes += "META-INF/LICENSE-notice.md"
+        }
     }
 }
 
@@ -121,6 +132,7 @@ dependencies {
     testImplementation(libs.androidx.test.core.ktx)
     testImplementation(libs.androidx.test.ext)
     testImplementation(libs.androidx.test.rules)
+    testImplementation(libs.mockk)
 
     // AndroidX Test - Instrumented testing
     androidTestImplementation(libs.androidx.test.core.ktx)
@@ -133,6 +145,8 @@ dependencies {
     androidTestImplementation(libs.androidx.test.espresso.intents)
     androidTestImplementation(libs.androidx.test.espresso.idling.resources)
     androidTestImplementation(libs.androidx.test.espresso.idling.concurrent)
+    androidTestImplementation(libs.mockk.android)
+    androidTestImplementation(libs.mockk.agent)
 
     // AndroidX Test - Hilt testing
     androidTestImplementation(libs.hilt.android.testing)
