@@ -1,10 +1,10 @@
 package nz.co.thewarehouse.productsearch.search
 
-import android.util.Log
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.combine
@@ -30,6 +30,7 @@ class SearchViewModel @Inject constructor(
     private val repository: ProductRepository
 ) : ViewModel() {
 
+    private var searchJob: Job? = null
     val searchQuery = savedStateHandle.getStateFlow(key = SEARCH_QUERY, initialValue = "")
 
     private val _isSearching = MutableStateFlow(false)
@@ -49,22 +50,26 @@ class SearchViewModel @Inject constructor(
     }.stateIn(
         scope = viewModelScope,
         started = WhileUiSubscribed,
-        initialValue = ProductsUiState(isSearching = false)
+        initialValue = ProductsUiState()
     )
 
     fun onSearchTriggered(query: String) {
         if (query.isBlank()) return
 
-        _isSearching.value = true
+        searchJob?.cancel()
 
-        viewModelScope.launch {
+        searchJob = viewModelScope.launch {
+            _isSearching.value = true
+
             try {
-                val products = repository.searchProducts(query)
-                _products.value = products
-                _userMessage.value = null
-            } catch (e: Exception) {
-                Log.e("SearchViewModel", "Error searching products: ${e.message}")
-                _userMessage.value = R.string.search_products_error
+                repository.searchProducts(query)
+                    .onSuccess { products ->
+                        _products.value = products
+                        _userMessage.value = null
+                    }
+                    .onFailure { e ->
+                        showSnackbarMessage(R.string.search_products_error)
+                    }
             } finally {
                 _isSearching.value = false
             }
@@ -81,6 +86,10 @@ class SearchViewModel @Inject constructor(
 
     fun onSearchQueryChanged(query: String) {
         savedStateHandle[SEARCH_QUERY] = query
+    }
+
+    fun getProductById(productId: String): Product? {
+        return _products.value.find { it.productId == productId }
     }
 }
 
