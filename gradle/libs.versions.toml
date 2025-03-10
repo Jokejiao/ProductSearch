@@ -116,7 +116,8 @@ androidx-work-ktx = { group = "androidx.work", name = "work-runtime-ktx", versio
 androidx-work-testing = { group = "androidx.work", name = "work-testing", version.ref = "androidxWork" }
 material = { group = "com.google.android.material", name = "material", version.ref = "material" }
 coil-kt = { group = "io.coil-kt", name = "coil", version.ref = "coil" }
-coil-kt-compose = { group = "io.coil-kt", name = "coil-compose", version.ref = "coil" }
+coil-kt-compose = { group = "io.coil-kt.coil3", name = "coil-compose", version.ref = "coil" }
+coil-kt-network-okhttp = { group = "io.coil-kt.coil3", name = "coil-network-okhttp", version.ref = "coil" }
 coil-kt-svg = { group = "io.coil-kt", name = "coil-svg", version.ref = "coil" }
 google-truth = { group = "com.google.truth", name = "truth", version.ref = "truth" }
 hamcrest = { group = "org.hamcrest", name = "hamcrest-all", version.ref = "hamcrest" }
