@@ -22,9 +22,9 @@ fun ProductSearchNavGraph(
     startDestination: String = ProductSearchDestinations.SEARCH_ROUTE,
     navActions: ProductSearchNavigationActions = remember(navController) {
         ProductSearchNavigationActions(navController)
-    }
+    },
+    viewModel: SearchViewModel = hiltViewModel()
 ) {
-    val viewModel = hiltViewModel<SearchViewModel>()
 
     NavHost(
         navController = navController,
