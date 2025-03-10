@@ -17,7 +17,7 @@ abstract class RepositoryModule {
 
     @Singleton
     @Binds
-    abstract fun bindTransactionRepository(repository: DefaultProductRepository): ProductRepository
+    abstract fun bindProductRepository(repository: DefaultProductRepository): ProductRepository
 }
 
 @Module
