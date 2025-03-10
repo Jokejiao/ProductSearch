@@ -14,6 +14,7 @@ import nz.co.thewarehouse.productsearch.R
 import nz.co.thewarehouse.productsearch.data.Product
 import nz.co.thewarehouse.productsearch.data.ProductRepository
 import nz.co.thewarehouse.productsearch.util.WhileUiSubscribed
+import java.util.concurrent.atomic.AtomicInteger
 import javax.inject.Inject
 
 
@@ -31,6 +32,7 @@ class SearchViewModel @Inject constructor(
 ) : ViewModel() {
 
     private var searchJob: Job? = null
+    private var jobCount = AtomicInteger(0)
     val searchQuery = savedStateHandle.getStateFlow(key = SEARCH_QUERY, initialValue = "")
 
     private val _isSearching = MutableStateFlow(false)
@@ -59,8 +61,8 @@ class SearchViewModel @Inject constructor(
         searchJob?.cancel()
 
         searchJob = viewModelScope.launch {
-            val currentJob = this@launch
             _isSearching.value = true
+            jobCount.incrementAndGet()
 
             try {
                 repository.searchProducts(query)
@@ -72,7 +74,7 @@ class SearchViewModel @Inject constructor(
                         showSnackbarMessage(R.string.search_products_error)
                     }
             } finally {
-                if (searchJob == currentJob) {
+                if (jobCount.decrementAndGet() == 0) {
                     _isSearching.value = false
                 }
             }
